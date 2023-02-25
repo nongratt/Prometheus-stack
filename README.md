@@ -295,7 +295,16 @@ receivers:
 
 docker compose up -d перезапускаем (данная команда вводится только из папки где лежит docker-compose.yml)
 
+Открываем браузер и переходим по адресу http://<IP-адрес сервера>:9090 — на вкладке Alerts мы должны увидеть нашу настройку как на скриншоте ниже 
+
+После выполняем docker stop exporter и проверяем наш телеграмм
+
 ```
+![1342](https://github.com/nongratt/Prometheus-stack/blob/main/alert/12.jpg)
+
+
+
+
 ### BlackBox
 
 ```
