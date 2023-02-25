@@ -117,7 +117,7 @@ GitHub Branch Source Plugin
 
 ```
 
-### Git
+### Grafana
 
 ```
 sudo yum install git -y
@@ -126,6 +126,25 @@ git config --global user.name "TESTINVS"  #Базовая информация �
 git config --global user.email "test@invs.ru" #Базовая информация об фиксации изминений в репе
 git config --list
 ```
+### Alertmanager
+
+```
+sudo yum install git -y
+git --version
+git config --global user.name "TESTINVS"  #Базовая информация об фиксации изминений в репе
+git config --global user.email "test@invs.ru" #Базовая информация об фиксации изминений в репе
+git config --list
+```
+### BlackBox
+
+```
+sudo yum install git -y
+git --version
+git config --global user.name "TESTINVS"  #Базовая информация об фиксации изминений в репе
+git config --global user.email "test@invs.ru" #Базовая информация об фиксации изминений в репе
+git config --list
+```
+
 
 ## So, what is next ?
 
