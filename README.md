@@ -37,6 +37,8 @@ PROMDASH — дашборд для метрик;
 менеджер уведомлений AlertManager (на текущий момент находится на стадии бета-тестирования);
 клиент командной строки для выполнения запросов к данным.
 
+![123](https://github.com/nongratt/Prometheus-stack/blob/main/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA123.PNG)
+
 ## So, what is next ?
 
 ## Linux bash/zsh
