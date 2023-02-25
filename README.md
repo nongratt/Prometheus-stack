@@ -53,14 +53,14 @@ sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
 sudo apt-get update
 
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y  #Установка всего необходимо из ранее добавленного репозитория докер
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin  #Установка всего необходимо из ранее добавленного репозитория докер
 
 sudo systemctl start docker #Запуск
 
 sudo systemctl enable docker #Добавление в загрузчик 
 
 ```
-### Jenkins
+### Prometheus NodeExporter
 
 ```
 iptables -I INPUT -p tcp --dport 8080 -j ACCEPT     #Доступность портов 80 с помощью firewall iptables если его нет, sudo apt-get install iptables
