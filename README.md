@@ -306,8 +306,115 @@ docker compose up -d перезапускаем (данная команда в�
 
 
 ### BlackBox
+Переходим к настройке мониторинга http сервисов. В нашем примере мы будем проверять работу yandex.ru.
+
+Открываем наш файл docker-compose:
+
 
 ```
+blackbox:
+    image: prom/blackbox-exporter
+    container_name: blackbox
+    hostname: blackbox
+    ports:
+      - 9115:9115
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/blackbox/blackbox.yml"
+    volumes:
+      - ./blackbox:/etc/blackbox
+    environment:
+      TZ: "Europe/Moscow"
+    networks:
+      - default
+Cервис blackbox является компонентом Prometheus для мониторинга сетевых сервисов по различным протоколам.
+
+Открываем конфигурационный файл prometheus:
+
+vi prometheus/prometheus.yml
+
+- job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+        - https://www.yandex.ru
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115
+Создаем конфигурационный файл blackbox:
+
+vi blackbox/blackbox.yml
+
+modules:
+  http_2xx:
+    prober: http
+    timeout: 5s
+    http:
+      valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+      valid_status_codes: [200]
+      method: GET
+      no_follow_redirects: true
+      fail_if_ssl: false
+      fail_if_not_ssl: false
+      fail_if_body_matches_regexp:
+        - "Could not connect to database"
+      fail_if_body_not_matches_regexp:
+        - "Download the latest version here"
+      fail_if_header_matches: # Verifies that no cookies are set
+        - header: Set-Cookie
+          allow_missing: true
+          regexp: '.*'
+      fail_if_header_not_matches:
+        - header: Access-Control-Allow-Origin
+          regexp: '(\*|example\.com)'
+      tls_config:
+        insecure_skip_verify: false
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: false
+      
+Во многом, данный пример взят с официальной страницы на Github.
+
+Теперь откроем конфигурационный файл с описанием правил для предупреждений:
+
+vi prometheus/alert.rules
+
+Добавим:
+
+
+  - alert: BlackboxSlowProbe
+    expr: avg_over_time(probe_duration_seconds[1m]) > 5
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: Blackbox slow probe (instance {{ $labels.instance }})
+      description: "Blackbox probe took more than 1s to complete\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+  - alert: BlackboxProbeHttpFailure
+    expr: probe_http_status_code <= 199 OR probe_http_status_code >= 400
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: Blackbox probe HTTP failure (instance {{ $labels.instance }})
+      description: "HTTP status code is not 200-399\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+    В данном примере мы создали два правила:
+
+    BlackboxSlowProbe — предупреждать, если сайт открывается дольше 5 секунд.
+    BlackboxProbeHttpFailure — реагировать, в случае получения кода ответа с ошибкой работы сайта (более 400).
+    Запускаем добавленный в докер сервис:
+
+         docker compose up -d
+    Для визуализации мониторинга с помощью blackbox есть готовый дашборд в графане. Снова открываем страницу импорта В GRAFANA и вводим 7587
+
+
 
 ```
 
