@@ -52,41 +52,53 @@ PROMDASH — дашборд для метрик;
 
 ## Linux bash/zsh
 
+Установки производятся на ОС Debian 10
+
 ### Docker
 
 ```
 Установка репозитория
 
-sudo apt-get update #Обновляем состав устанолвенных пакетов 
+apt-get update #Обновляем состав устанолвенных пакетов 
 
-sudo apt-get install \
+apt-get install \
     ca-certificates \
     curl \
     gnupg \
     lsb-release
-sudo mkdir -m 0755 -p /etc/apt/keyrings
+mkdir -m 0755 -p /etc/apt/keyrings
 
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg  #Ключ для работы с официальным репозиторием Docker  (дергаем из ранее созданной папки по пути  /etc/apt/keyrings)
+curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg  #Ключ для работы с официальным репозиторием Docker  (дергаем из ранее созданной папки по пути  /etc/apt/keyrings)
 
  echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null     #Настройка репозитория
+  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null     #Настройка репозитория
 
 Установка DOCKER
 
-sudo apt-get update
+apt-get update
 
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
+chmod a+r /etc/apt/keyrings/docker.gpg
 
-sudo apt-get update
+apt-get update
 
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin  #Установка всего необходимо из ранее добавленного репозитория докер
+apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin  #Установка всего необходимо из ранее добавленного репозитория докер
 
-sudo systemctl start docker #Запуск
+systemctl start docker #Запуск
 
-sudo systemctl enable docker #Добавление в загрузчик 
+systemctl enable docker #Добавление в загрузчик 
+
+Cнизу бесплатная утилита для мини оркестрации наших контейнеров
+
+https://docs.portainer.io/start/install/server/docker/linux
+
+https://www.portainer.io/take-5
+
 
 ```
+![1232](https://github.com/nongratt/Prometheus-stack/blob/main/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA4343.PNG)
+
+
 ### Prometheus NodeExporter
 
 ```
