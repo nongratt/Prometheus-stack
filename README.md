@@ -186,8 +186,24 @@ grafana:
       TZ: "Europe/Moscow"
     networks:
       - default
+      
+Открываем браузер и переходим по адресу http://<IP-адрес сервера>:3000 — мы должны увидеть стартовую страницу Grafana.
+
+Для авторизации вводим admin / admin. После система потребует ввести новый пароль.
+
+Далее идем по скриншотам
+
 
 ```
+![01](https://github.com/nongratt/Prometheus-stack/blob/main/grafana/01.jpg)
+![02](https://github.com/nongratt/Prometheus-stack/blob/main/grafana/02.jpg)
+![03](https://github.com/nongratt/Prometheus-stack/blob/main/grafana/03.jpg)
+![04](https://github.com/nongratt/Prometheus-stack/blob/main/grafana/04.jpg)
+![05](https://github.com/nongratt/Prometheus-stack/blob/main/grafana/05.jpg)
+![06](https://github.com/nongratt/Prometheus-stack/blob/main/grafana/06.jpg)
+![07](https://github.com/nongratt/Prometheus-stack/blob/main/grafana/07.jpg)
+
+
 ### Alertmanager
 
 ```
