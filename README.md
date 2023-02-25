@@ -1,17 +1,17 @@
 # Prometheus-stack
 
- - [Monitoring](#Сборка-приложения-в-DOCKER-с-помощью-Jenkins-pipline)
+ - [Building monitoring](#Сборка-приложения-в-DOCKER-с-помощью-Jenkins-pipline)
    - [What](#what)
+   - [Все о Prometheus](#Все-о-Prometheus)
+     - [Основы Prometheus](#Теория-Prometheus)
+     - [Архитектура](#Основые-компоненты)
+   - [So, what is next ?](#So-,-what-is-next-?)
    - [Linux](#linux-bashzsh)
      - [Docker (with bash)](#Docker)
      - [Prometheus (with bash)](#Prometheus-NodeExporter)
      - [Grafana (with bash)](#Grafana)
      - [AlertManager (with bash)](#Alertmanager)
      - [Blackbox (with bash)](#BlackBox)
-   - [So, what is next ?](#So-,-what-is-next-?)
-   - [Все о Prometheus](#Все-о-Prometheus)
-     - [Основы Prometheus](#Теория-Prometheus)
-     - [Архитектура](#Основые-компоненты)
    - [Заключение](#Заключение)
 
 ## What
